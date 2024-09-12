@@ -1,0 +1,334 @@
+<style>
+  .sticky-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 50px;
+    background-color: #cdb104;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 10px 10px 0 0;
+    transition: transform 0.6s ease-in-out, bottom 0.6s ease-in-out;
+    z-index: 1000;
+  }
+
+  .drawer-visible {
+    bottom: 40%;
+    background-color: white;
+  }
+
+  .drawer-tab {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 0.8;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.6s ease-in-out;
+    font-size: 2rem;
+  }
+
+  .drawer-tab.rotate {
+    transform: rotate(180deg);
+  }
+
+  .drawer-content-text {
+    flex-grow: 1;
+    text-align: left;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  /* Slider container collapsed */
+  .slider-container {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 0; /* Initially collapsed */
+    overflow: hidden;
+    transition: height 0.6s ease-in-out;
+    border-radius: 10px 10px 0 0;
+    z-index: 999;
+  }
+
+  /* When the slider is visible */
+  .drawer-visible + .slider-container {
+    height: 40%;
+  }
+  .drawer-visible .arrow-container {
+    visibility: visible;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+    will-change: transform;
+    cursor: grab;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slides:active {
+    cursor: grabbing;
+  }
+
+  .slide {
+    flex: 0 0 calc(100% / var(--slides-per-view));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+    text-align: center;
+  }
+
+  #slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Navigation arrows */
+  .slider-arrow {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 2rem;
+  }
+  .navigation-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  .arrow-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1.2;
+    visibility: hidden;
+  }
+
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 500;
+  }
+
+  .drawer-visible ~ .overlay {
+    display: block;
+  }
+
+  .flip-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .flip-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    color: black;
+    background-color: white;
+  }
+
+  .flip-card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: top center; /* Image at top */
+    background-repeat: no-repeat;
+    box-shadow: 3px 3px grey, 0.5em 0 0.4em;
+  }
+
+  .flip-card-front {
+    transform: rotateY(0); /* Normal front face */
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg); /* Back face rotated */
+  }
+
+  .card-header {
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    color: white;
+    margin: 10px 0;
+    z-index: 2;
+  }
+
+  .pokemon-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: white;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: auto; /* Stick to the bottom */
+    z-index: 2;
+  }
+
+  .flip-button {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: #cdb104;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #333;
+    text-transform: uppercase;
+  }
+
+  .flip-button:hover {
+    transform: scale(1.2, 1.2);
+  }
+
+  /* Tooltip container */
+  .tooltip {
+    position: absolute;
+    bottom: 10px;
+    right: 2rem;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    padding: 5px 15px;
+    background-color: #cdb104;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    color: #333;
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltip-text {
+    visibility: hidden;
+    width: auto; /* Allow the tooltip to adjust to content */
+    max-width: 150px; /* Set a maximum width */
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 25px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s ease-in-out;
+    white-space: normal;
+  }
+
+  /* Shift the tooltip to the left if it overflows */
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-100%);
+  }
+
+  /* Tooltip arrow */
+  .tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    bottom: 1px;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #555; /* Right-facing arrow */
+  }
+
+  /* Desktop - show 4 slides */
+  @media (min-width: 1024px) {
+    .slide {
+      flex: 0 0 25%; /* 4 slides per view */
+    }
+  }
+
+  /* Tablet - show 2 slides */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .slide {
+      flex: 0 0 50%; /* 2 slides per view */
+    }
+
+    .drawer-visible {
+      bottom: 60%;
+    }
+    .drawer-visible + .slider-container {
+      height: 60%;
+    }
+  }
+  @media (max-width: 767px) {
+    .slide {
+      flex: 0 0 100%; /* 1 slide per view */
+    }
+    .drawer-visible {
+      bottom: 80%;
+    }
+
+    .drawer-visible + .slider-container {
+      height: 80%;
+    }
+  }
+</style>

@@ -1,0 +1,424 @@
+<style>
+  /* Glass section styling */
+  /* change background color rest of the elements */
+
+  body > header.header {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-bottom: none;
+  }
+
+  body > main > section.contact-form {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-section {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    background: rgba(255, 255, 255);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px 70px 30px;
+    text-align: center;
+    max-width: 500px;
+  }
+  .glass-section h1 {
+    font-size: 2.6rem;
+    text-align: left;
+    height: 80px;
+  }
+  .glass-section p {
+    text-align: left;
+    margin-bottom: 4rem;
+  }
+  button {
+    align-self: flex-end;
+  }
+  #open-modal {
+    width: 200px;
+    align-items: right;
+  }
+  #hbspt-form-1725756843000-8942708899 > div > h1 .button,
+  .hs-button.primary.large {
+    display: inline-block;
+    font-family: Open Sans, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    background-color: #171717;
+    border: 1px solid #171717;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: background-color 0.3s
+        cubic-bezier(0.455, 0.03, 0.515, 0.955),
+      color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition: background-color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+      color 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    white-space: nowrap;
+    border-radius: 4px;
+  }
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .contact-form__form {
+    background: none;
+  }
+
+  .glass-button:hover {
+    background: #0056b3;
+  }
+  /* ui buttons */
+  /* Base button style */
+  .form-nav > button {
+    position: relative;
+    background: #4caf50; /* Base green color */
+    color: white;
+    padding: 1rem 1.5rem;
+    font-weight: bold;
+    clip-path: polygon(
+      7% 0%,
+      93% 0%,
+      93% 7%,
+      100% 7%,
+      100% 93%,
+      93% 93%,
+      93% 100%,
+      7% 100%,
+      7% 93%,
+      0% 93%,
+      0% 7%,
+      7% 7%
+    );
+    /* border: 3px solid black; Dark border for pixel effect */
+    overflow: visible;
+    transition: all 0.2s ease-in-out;
+    z-index: 1;
+  }
+
+  /* Hover state */
+  .form-nav > button:hover {
+    background-color: #5bc55e; /* Lighter green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 3px 3px 0px black; /* Shadow to create 3D effect */
+  }
+
+  /* Focus state */
+  .form-nav > button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px blue; /* Blue outline for focus */
+  }
+
+  /* Pressed state */
+  .form-nav > button:active {
+    background-color: #388e3c; /* Darker green on press */
+    transform: translateY(2px); /* Push down effect */
+    box-shadow: none; /* Remove shadow on press */
+  }
+
+  /* Disabled state */
+  .form-nav > button:disabled {
+    background-color: #d3d3d3; /* Light grey background */
+    color: #a9a9a9; /* Grey text color */
+    border: 3px solid #a9a9a9; /* Grey border */
+    cursor: not-allowed;
+  }
+
+  /* ::after element to create outer pixel effect */
+  .form-nav > button::after {
+    content: "";
+    position: absolute;
+    top: 0px; /* Position slightly outside the button */
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-right: 5px solid#066009;
+    border-left: 5px solid #066009;
+    border-bottom: 5px solid#066009;
+    border-top: 5px solid #739b75d1;
+    clip-path: inherit; /* Same cut corner effect */
+    z-index: 2;
+  }
+
+  /* Modal styling */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+  }
+
+  .modal-content {
+    background: #f2f2f2;
+    padding: 3rem 2.5rem;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+  }
+  #multi-step-form > div.form-step.step-1.active > fieldset.form-columns-2 {
+    border: none;
+  }
+  #multi-step-form > div.form-step.step-1.active > fieldset.form-columns-1 {
+    border: none;
+  }
+  #multi-step-form > div.form-step.step-2.active > fieldset {
+    border: none;
+  }
+  .hidden {
+    display: none;
+  }
+  .active {
+    display: block;
+  }
+
+  /* Input field styling */
+  .hs-input {
+    display: inline-block;
+    width: 100%;
+    height: 46px;
+    padding: 9px 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #33475b;
+    border: 1px solid #cbd6e2;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+  .hs-form-required {
+    color: red;
+  }
+  .hs-error-msg.hs-main-font-element {
+    font-size: 12px !important;
+    color: red;
+  }
+  .no-list.hs-error-msgs.inputs-list {
+    margin: 0;
+  }
+  .no-list.hs-error-msgs.inputs-list li {
+    list-style-type: none;
+  }
+  .input input {
+    margin-bottom: 0;
+  }
+
+  /* new style here */
+  .hs-error-msg {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    font-size: 12px !important;
+    color: red;
+    margin-top: 2px;
+  }
+
+  .hs-form-field {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .inputs-list {
+    padding-left: 0;
+  }
+  .inputs-list .hs-form-booleancheckbox {
+    list-style-type: none;
+  }
+  .hs-form-booleancheckbox > label > span {
+    margin-left: 0;
+  }
+
+  .hs-form-booleancheckbox > label > span > p {
+    font-size: 12px !important;
+    line-height: 18px;
+  }
+  .hs-richtext > p {
+    font-size: 12px !important;
+    line-height: 18px;
+  }
+
+  #LEGAL_CONSENT\.subscription_type_45081547-e259701f-aa68-4328-8ebf-013c47468869 {
+    appearance: auto;
+    position: absolute;
+    top: -10px;
+    width: auto;
+  }
+
+  /* Progress bar styling */
+  .progress-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    text-align: center;
+  }
+
+  .step-icon-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-icon {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: black;
+    border: 2px solid grey;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-title {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #8894ff;
+  }
+
+  /* Active step: blue background for the icon */
+  .step.active .step-icon {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+    transition: background-color 0.9s ease-in-out;
+    /* Smooth transition */
+  }
+
+  .step.active .step-title {
+    color: #007bff;
+  }
+
+  .step.completed .step-icon {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid green;
+    position: relative;
+  }
+
+  .step.completed .step-icon:after {
+    content: "✔";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid white;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .progress-line {
+    height: 5px;
+    background-color: lightgrey; /* Initial grey color */
+    position: absolute;
+    top: 1rem;
+    left: 50%; /* Start from the left */
+    width: 100%; /* The line will already be fully filled */
+    z-index: 1;
+    transition: background-color 0.9s ease; /* Transition for color change */
+  }
+
+  .step:not(:last-child) .progress-line {
+    width: 0%; /* Start with 0 width */
+  }
+
+  .step.completed ~ .progress-line {
+    background-color: #007bff;
+  }
+
+  /* Completed step: green background with a check mark */
+  .step.completed .step-icon {
+    background-color: #007bff;
+    color: white;
+    border: 2px solid green;
+    position: relative;
+    transition: background-color 0.3s ease-in-out; /* Smooth background transition */
+  }
+
+  .step.completed .step-icon:after {
+    content: "✔";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 12px;
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    border: 1px solid white;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Form steps */
+  .form-step {
+    display: none;
+  }
+
+  .form-step.active {
+    display: block;
+  }
+
+  /* Thank-you message styling */
+  .thank-you-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: green;
+  }
+
+  .error-message {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+
+  /* Media Queries for responsiveness */
+  @media (max-width: 768px) {
+    .glass-section {
+      max-width: 90%;
+    }
+
+    .modal-content {
+      max-width: 90%;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .glass-section {
+      padding: 10px;
+    }
+  }
+</style>
