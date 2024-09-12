@@ -183,9 +183,6 @@ openModalButton.addEventListener("click", function () {
     "#email-e259701f-aa68-4328-8ebf-013c47468869"
   );
 
-  nextStepButton.style.cursor = "not-allowed"; // Optional: Disable cursor
-  nextStepButton.style.opacity = "0.5";
-
   FirstNameInput.addEventListener("input", (event) => {
     firstNameValue = event.target.value;
     clearAlert((type = "first-name"));
